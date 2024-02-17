@@ -1,6 +1,5 @@
-import Image from "next/image";
-import styles from "./page.module.scss";
+import List from "./components/list/List";
 
 export default function Home() {
-  return <div>여기에서 목록 만들꺼</div>;
+  return <List />;
 }

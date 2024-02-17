@@ -1,0 +1,13 @@
+.page_wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+  ul {
+    display: flex;
+
+    a {
+      border: 1px solid red;
+      padding: 0 0.5em;
+    }
+  }
+}
