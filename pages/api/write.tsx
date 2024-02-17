@@ -10,6 +10,7 @@ export default async function WriteApi(
   if (req.method === "POST") {
     await addDoc(collection(db, "list"), {
       ...body,
+      timestamp: new Date(),
     });
   }
   return res.status(200).json("전송완료");

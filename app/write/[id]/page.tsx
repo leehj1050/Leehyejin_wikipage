@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 
 export default function Write() {
   const router = useRouter();
-  const [userTitle, setUserTitle] = useState("");
-  const [userContent, setUserContent] = useState("");
+  const [userTitle, setUserTitle] = useState<string>("");
+  const [userContent, setUserContent] = useState<string>("");
 
   /**제목,내용 onChange*/
   const handleChanges = (
@@ -15,10 +15,8 @@ export default function Write() {
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     if (e.target.name === "title") {
-      console.log(e.target.value);
       setUserTitle(e.target.value);
     } else {
-      console.log(e.target.value);
       setUserContent(e.target.value);
     }
   };
@@ -43,6 +41,8 @@ export default function Write() {
           title: userTitle,
           content: userContent,
         }),
+      }).then((res) => {
+        if (res.status === 200) router.push("/");
       });
     }
   };

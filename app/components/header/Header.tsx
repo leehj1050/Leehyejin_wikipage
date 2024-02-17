@@ -6,9 +6,9 @@ import Logo from "./Logo";
 export default function Header() {
   return (
     <main className={styles.main}>
-      <div className={styles.logo_box}>
+      <Link className={styles.logo_box} href={"/"}>
         <Logo />
-      </div>
+      </Link>
       <div className={styles.menu_box}>
         <ul>
           <Link href={"/"}>
