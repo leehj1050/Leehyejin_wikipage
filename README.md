@@ -1,1 +1,1 @@
-<img src="https://img.shields.io/badge/Next.js-#0000?style=flat&logo=nextdotjs&logoColor=white"/>
+<img src="https://img.shields.io/badge/Next.js-#0000?style=flat&logo=next.js&logoColor=white"/>
