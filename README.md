@@ -1,1 +1,1 @@
-<img src="https://img.shields.io/badge/html-blue?style=flat&logo=htmx&logoColor=white"/>
+<img src="https://img.shields.io/badge/Next.js-#0000?style=flat&logo=nextdotjs&logoColor=white"/>
