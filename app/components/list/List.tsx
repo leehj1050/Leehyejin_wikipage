@@ -8,7 +8,7 @@ export default function List() {
     <main className={styles.main}>
       <div className={styles.list_wrap}>
         <div className={styles.btn_wrap}>
-          <Link href={"/write"}>글쓰기</Link>
+          <Link href={"/write/new"}>글쓰기</Link>
         </div>
         <ul>
           <Link href={"/"}>
