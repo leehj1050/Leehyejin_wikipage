@@ -1,18 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./list.module.scss";
-import Pagination from "./components/PageNumber";
+import LocalPagination from "./components/LocalPagination";
 import Link from "next/link";
 import { DataType } from "@/types/type";
+import { useAppContext } from "@/app/context";
 
 export default function List() {
-  const [data, setData] = useState<DataType[]>([]);
-
-  useEffect(() => {
-    fetch("/api/getList")
-      .then((res) => res.json())
-      .then((res) => setData(res));
-  }, []);
+  const data: DataType[] = useAppContext();
+  const [currentPost, setCurrentPost] = useState<DataType[]>(data); // 5개씩 보여주게 될 데이터
 
   return (
     <main className={styles.main}>
@@ -21,9 +17,10 @@ export default function List() {
           <Link href={"/write/new"}>글쓰기</Link>
         </div>
         <ul>
-          {data.map((list, idx) => {
+          {currentPost.map((list, idx) => {
+            const id = list.id;
             return (
-              <Link href={"/"} key={idx}>
+              <Link href={`/detail/${id}`} key={idx}>
                 <li>
                   <h3>{list.title}</h3>
                   <p>{list.content}</p>
@@ -34,7 +31,7 @@ export default function List() {
         </ul>
       </div>
       <div>
-        <Pagination />
+        <LocalPagination data={data} setCurrentPost={setCurrentPost} />
       </div>
     </main>
   );
