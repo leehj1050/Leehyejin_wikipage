@@ -13,7 +13,3 @@ export interface PropIdType {
     id: string;
   };
 }
-
-export interface CommonType {
-  id: string;
-}

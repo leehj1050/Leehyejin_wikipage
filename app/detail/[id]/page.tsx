@@ -3,19 +3,35 @@ import { DataType, PropIdType } from "@/types/type";
 import React, { useEffect, useState } from "react";
 import styles from "../style/Detail.module.scss";
 import Link from "next/link";
-import { useAppContext } from "@/app/context";
+import { useRouter } from "next/navigation";
 
 export default function Detail(prop: PropIdType) {
+  const router = useRouter();
   const { id } = prop.params;
 
-  const data: DataType[] = useAppContext();
+  const [data, setData] = useState<DataType[]>([]);
   const [detailData, setDetailData] = useState<DataType>();
 
   useEffect(() => {
     fetch(`/api/detail?id=${id}`)
       .then((res) => res.json())
       .then((res) => setDetailData(res));
+
+    fetch("/api/getList")
+      .then((res) => res.json())
+      .then((res) => setData(res));
   }, []);
+
+  /**삭제버튼*/
+  const handleDelete = () => {
+    if (confirm("삭제 하시겠습니까?")) {
+      fetch(`/api/delete?id=${id}`).then((res) => {
+        if (res.status === 200) {
+          router.push("/");
+        }
+      });
+    }
+  };
 
   /** 본문 내용에 다른본문의 제목이 포함 되면 링크 걸리게.. */
   let desc = detailData?.content;
@@ -40,7 +56,7 @@ export default function Detail(prop: PropIdType) {
       <div className={styles.btn_box}>
         <Link href={`/edit/${id}`}>수정</Link>
         <Link href={"/"}>목록</Link>
-        <Link href={"/"}>삭제</Link>
+        <button onClick={handleDelete}>삭제</button>
       </div>
     </main>
   );

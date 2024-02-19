@@ -33,15 +33,20 @@ $solid-color: #e4e4e4;
     display: flex;
     gap: 15px;
     justify-content: center;
-    a {
+    button {
+      background-color: rgb(252, 73, 73);
+      color: $button-background-color;
+      &:hover {
+        @include button-hover-style;
+      }
+    }
+    a,
+    button {
+      font-size: 15px;
       padding: 0.5em 1em;
       border: 1px solid $solid-color;
       border-radius: 10px;
       cursor: pointer;
-      &:hover {
-        @include button-hover-style;
-        background-color: $solid-color;
-      }
     }
     a:first-child {
       background-color: rgb(230, 149, 0);
@@ -50,11 +55,10 @@ $solid-color: #e4e4e4;
         @include button-hover-style;
       }
     }
-    a:last-child {
-      background-color: rgb(252, 73, 73);
-      color: $button-background-color;
+    a {
       &:hover {
         @include button-hover-style;
+        background-color: $solid-color;
       }
     }
   }

@@ -1,22 +1,19 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "./CommonComp.module.scss";
-import { CommonType, DataType } from "@/types/type";
+import { DataType } from "@/types/type";
 
-export default function CommonComp({ id }: CommonType) {
+interface CommonPropType {
+  id: string;
+  detailData?: DataType;
+}
+
+export default function CommonComp({ id, detailData }: CommonPropType) {
   const router = useRouter();
+
+  /**변경된값저장 */
   const [userTitle, setUserTitle] = useState<string>("");
   const [userContent, setUserContent] = useState<string>("");
-
-  const [detailData, setDetailData] = useState<DataType>();
-
-  if (id !== "new") {
-    useEffect(() => {
-      fetch(`/api/detail?id=${id}`)
-        .then((res) => res.json())
-        .then((res) => setDetailData(res));
-    }, [id]);
-  }
 
   /**제목,내용 onChange*/
   const handleChanges = (
@@ -26,10 +23,8 @@ export default function CommonComp({ id }: CommonType) {
   ) => {
     if (e.target.name === "title") {
       setUserTitle(e.target.value);
-      console.log(e.target.value);
     } else {
       setUserContent(e.target.value);
-      console.log(e.target.value);
     }
   };
 
@@ -40,18 +35,19 @@ export default function CommonComp({ id }: CommonType) {
     }
   };
 
-  /** 수정완료 버튼 */
+  /** 등록 & 수정완료 버튼 */
   const handleClick = () => {
     if (!userTitle) {
       alert("제목을 입력해주세요");
     } else if (!userContent) {
       alert("내용을 입력해주세요");
     } else {
-      fetch("/api/edit", {
-        method: "PUT",
+      fetch(id === "new" ? "/api/write" : "/api/edit", {
+        method: id === "new" ? "POST" : "PUT",
         body: JSON.stringify({
           title: userTitle,
           content: userContent,
+          id: id,
         }),
       }).then((res) => {
         if (res.status === 200) router.push("/");
@@ -66,21 +62,19 @@ export default function CommonComp({ id }: CommonType) {
           <input
             name="title"
             onChange={(e) => handleChanges(e)}
-            defaultValue={detailData?.title ? detailData.title : userTitle}
+            defaultValue={detailData ? detailData.title : ""}
           />
         </div>
         <div className={styles.content_input}>
           <textarea
             name="content"
             onChange={(e) => handleChanges(e)}
-            defaultValue={
-              detailData?.content ? detailData.content : userContent
-            }
+            defaultValue={detailData ? detailData.content : ""}
           />
         </div>
         <div className={styles.btn_wrap}>
           <button onClick={handleCancel}>취소</button>
-          <button onClick={() => handleClick()}>
+          <button onClick={handleClick}>
             {id === "new" ? "등록" : "수정완료"}
           </button>
         </div>

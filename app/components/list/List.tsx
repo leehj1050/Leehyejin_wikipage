@@ -1,14 +1,19 @@
 "use client";
-import React, { useState } from "react";
-import styles from "./list.module.scss";
+import React, { useEffect, useState } from "react";
+import styles from "./List.module.scss";
 import LocalPagination from "./components/LocalPagination";
 import Link from "next/link";
 import { DataType } from "@/types/type";
-import { useAppContext } from "@/app/context";
 
 export default function List() {
-  const data: DataType[] = useAppContext();
+  const [data, setData] = useState<DataType[]>([]);
   const [currentPost, setCurrentPost] = useState<DataType[]>(data); // 5개씩 보여주게 될 데이터
+
+  useEffect(() => {
+    fetch("/api/getList")
+      .then((res) => res.json())
+      .then((res) => setData(res));
+  }, []);
 
   return (
     <main className={styles.main}>

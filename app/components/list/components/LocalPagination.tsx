@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./LocalPagination.module.scss";
 import Pagination from "react-js-pagination";
 import { DataType } from "@/types/type";

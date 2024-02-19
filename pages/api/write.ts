@@ -9,9 +9,11 @@ export default async function WriteApi(
   const body = JSON.parse(req.body);
   if (req.method === "POST") {
     await addDoc(collection(db, "list"), {
-      ...body,
+      title: body.title,
+      content: body.content,
       timestamp: new Date(),
     });
   }
-  return res.status(200).json("전송완료");
+
+  return res.status(200).json("등록 전송완료");
 }
