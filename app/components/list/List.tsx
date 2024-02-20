@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./list.module.scss";
+import styles from "./List.module.scss";
 import LocalPagination from "./components/LocalPagination";
 import Link from "next/link";
 import { DataType } from "@/types/type";

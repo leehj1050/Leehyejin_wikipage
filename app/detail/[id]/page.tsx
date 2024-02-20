@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../style/Detail.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Loading from "@/app/components/loading/Loading";
 
 export default function Detail(prop: PropIdType) {
   const router = useRouter();
@@ -11,11 +12,14 @@ export default function Detail(prop: PropIdType) {
 
   const [data, setData] = useState<DataType[]>([]);
   const [detailData, setDetailData] = useState<DataType>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`/api/detail?id=${id}`)
       .then((res) => res.json())
-      .then((res) => setDetailData(res));
+      .then((res) => {
+        setDetailData(res), setLoading(false);
+      });
 
     fetch("/api/getList")
       .then((res) => res.json())
@@ -47,17 +51,23 @@ export default function Detail(prop: PropIdType) {
 
   return (
     <main className={styles.main}>
-      <div className={styles.title}>
-        <div>{detailData?.title}</div>
-      </div>
-      <div className={styles.content}>
-        <div dangerouslySetInnerHTML={{ __html: desc ?? "" }}></div>
-      </div>
-      <div className={styles.btn_box}>
-        <Link href={`/edit/${id}`}>수정</Link>
-        <Link href={"/"}>목록</Link>
-        <button onClick={handleDelete}>삭제</button>
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className={styles.title}>
+            <div>{detailData?.title}</div>
+          </div>
+          <div className={styles.content}>
+            <div dangerouslySetInnerHTML={{ __html: desc ?? "" }}></div>
+          </div>
+          <div className={styles.btn_box}>
+            <Link href={`/edit/${id}`}>수정</Link>
+            <Link href={"/"}>목록</Link>
+            <button onClick={handleDelete}>삭제</button>
+          </div>
+        </>
+      )}
     </main>
   );
 }
