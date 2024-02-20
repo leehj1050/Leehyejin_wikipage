@@ -11,6 +11,7 @@ export default function Edit(prop: PropIdType) {
       .then((res) => res.json())
       .then((res) => setDetailData(res));
   }, []);
+
   const { id } = prop.params;
   return <CommonComp id={id} detailData={detailData} />;
 }

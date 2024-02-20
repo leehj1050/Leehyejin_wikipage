@@ -12,8 +12,8 @@ export default function CommonComp({ id, detailData }: CommonPropType) {
   const router = useRouter();
 
   /**변경된값저장 */
-  const [userTitle, setUserTitle] = useState<string>("");
-  const [userContent, setUserContent] = useState<string>("");
+  const [userTitle, setUserTitle] = useState("");
+  const [userContent, setUserContent] = useState("");
 
   /**제목,내용 onChange*/
   const handleChanges = (
